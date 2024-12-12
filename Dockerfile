@@ -1,12 +1,8 @@
-# Use a lightweight Nginx image as the base
+# Use an official nginx image as the base image
 FROM nginx:alpine
 
-# Copy your HTML file to the Nginx default directory
+# Copy the HTML file into the container
 COPY index.html /usr/share/nginx/html/
 
-# Expose port 80 for HTTP traffic
+# Expose port 80 to the outside world
 EXPOSE 80
-
-# Start Nginx when the container starts
-CMD ["nginx", "-g", "daemon off;"]
- /usr/share/nginx/html/index.html
