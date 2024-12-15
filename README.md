@@ -29,7 +29,7 @@ To run this project locally or inside a Docker container, you need the following
 Clone it using Git:
 
 ```bash
-git clone https://github.com/lessalcu/HtmlProject.git
+git clone https://github.com/Danyss09/HtmlProject.git
 cd HtmlProject
 ```
 
@@ -38,7 +38,7 @@ cd HtmlProject
 To build the Docker image, run the following command:
 
 ```bash
-docker build -t lssalas/html-project .
+docker build -t daniela0919/hello-world-html .
 ```
 
 #### 3. Run the Application
@@ -46,14 +46,14 @@ docker build -t lssalas/html-project .
 Once the image is built, run the container:
 
 ```bash
-docker run -d -p 8081:80 lssalas/html-project
+docker run -d -p 8081:80 daniela0919/hello-world-html
 ```
 
 The application will be available at `http://localhost:8081/` and you should see the message **¡Hola mundo desde HTML, Lesly Salas SI08!**.
 
 **Note:** If you encounter an error with port `8080` being already in use, you can either:
 - Terminate the process occupying the port (use `taskkill /PID <PID> /F` for Windows to stop the process), or
-- Run the container on a different port, such as `8081`, by using the command `docker run -d -p 8081:80 lssalas/html-project`.
+- Run the container on a different port, such as `8081`, by using the command `docker run -d -p 8081:80 daniela0919/hello-world-html`.
 
 ### Docker Hub Launch Manual
 
@@ -62,7 +62,7 @@ The application will be available at `http://localhost:8081/` and you should see
 To download the image from Docker Hub, run:
 
 ```bash
-docker pull lssalas/html-project:latest
+docker pull daniela0919/hello-world-html:latest
 ```
 
 #### 2. Run the Container
@@ -70,7 +70,7 @@ docker pull lssalas/html-project:latest
 Once the image is downloaded, run the container:
 
 ```bash
-docker run -d -p 8081:80 lssalas/html-project:latest
+docker run -d -p 8081:80 daniela0919/hello-world-html:latest
 ```
 
 This will start the container and the application will be available at `http://localhost:8081/`.
@@ -82,5 +82,5 @@ This will start the container and the application will be available at `http://l
 
 ## Credits
 
-- Project developed by **Lesly Salas** (https://github.com/lessalcu).
+- Project developed by **Daniela Cáceres** (https://github.com/Danyss09).
 ```
