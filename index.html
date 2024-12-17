@@ -3,18 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+        }
+        .gallery-item {
+            position: relative;
+        }
+        .gallery img {
+            max-width: 200px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        form {
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-
     <h1>¡Hello world from HTML, Daniela SI08!</h1>
     <h1>¡DOCKER HUB desde test!</h1>
 
- <p>Nombre de host: <span id="hostname"></span></p>
+    <p>Nombre de host: <span id="hostname"></span></p>
 
-  <script>
-    var hostname = window.location.hostname;
-    document.getElementById("hostname").innerHTML = hostname;
-  </script>
+    <!-- Formulario para subir imágenes -->
+    <form id="uploadForm">
+        <input type="file" id="imageInput" accept="image/*" required>
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <!-- Galería de imágenes -->
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        var hostname = window.location.hostname;
+        document.getElementById("hostname").innerHTML = hostname;
+
+        // Función para cargar la galería
+        async function loadGallery() {
+            const response = await fetch('/images'); // Backend devuelve las imágenes
+            const images = await response.json();
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            images.forEach(img => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `
+                    <img src="${img.url}" alt="${img.name}">
+                    <button class="delete-btn" onclick="deleteImage('${img.name}')">X</button>
+                `;
+                gallery.appendChild(item);
+            });
+        }
+
+        // Función para eliminar una imagen
+        async function deleteImage(name) {
+            await fetch(`/images/${name}`, { method: 'DELETE' });
+            loadGallery();
+        }
+
+        // Subir imagen al backend
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            formData.append('image', document.getElementById('imageInput').files[0]);
+            await fetch('/images', { method: 'POST', body: formData });
+            loadGallery();
+        });
+
+        // Inicializa la galería al cargar
+        loadGallery();
+    </script>
 </body>
 </html>
